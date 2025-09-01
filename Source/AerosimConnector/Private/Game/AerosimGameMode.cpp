@@ -80,7 +80,7 @@ void AAerosimGameMode::BeginPlay()
 
 	// Initialize the message handler with the renderer instance ID and start the
 	// polling thread to be ready to receive orchestrator commands
-	bIsMessageHandlerInitialized = initialize_message_handler(TCHAR_TO_UTF8(*InstanceID));
+	bIsMessageHandlerInitialized = initialize_message_handler(TCHAR_TO_UTF8(*InstanceID), "zenoh");
 
 	if (bIsMessageHandlerInitialized)
 	{
