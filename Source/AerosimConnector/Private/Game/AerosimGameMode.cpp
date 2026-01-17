@@ -78,9 +78,34 @@ void AAerosimGameMode::BeginPlay()
 	// FTCHARToUTF8 LogFileUtf8(*LogFile);
 	// initialize_logger(LogFileUtf8.Get());
 
+	// Force reload of config file to pick up any changes made while editor is running
+	FString OutFinalIniFileName;
+	FConfigCacheIni::LoadGlobalIniFile(OutFinalIniFileName, TEXT("Game"), nullptr, true);
+
+	// Load middleware type from config file
+	FString MiddlewareType = TEXT("zenoh"); // default value
+	if (GConfig)
+	{
+		GConfig->GetString(
+			TEXT("/Script/AerosimConnector.AerosimGameMode"),
+			TEXT("AeroSimMiddleware"),
+			MiddlewareType,
+			GGameIni
+		);
+	}
+
+	// Validate middleware type
+	if (MiddlewareType != TEXT("zenoh") && MiddlewareType != TEXT("kafka"))
+	{
+		UE_LOG(LogAerosimConnector, Warning, TEXT("Invalid AeroSimMiddleware value '%s'. Valid options are 'zenoh' or 'kafka'. Defaulting to 'zenoh'."), *MiddlewareType);
+		MiddlewareType = TEXT("zenoh");
+	}
+
+	UE_LOG(LogAerosimConnector, Warning, TEXT("Loading middleware type: %s"), *MiddlewareType);
+
 	// Initialize the message handler with the renderer instance ID and start the
 	// polling thread to be ready to receive orchestrator commands
-	bIsMessageHandlerInitialized = initialize_message_handler(TCHAR_TO_UTF8(*InstanceID), "zenoh");
+	bIsMessageHandlerInitialized = initialize_message_handler(TCHAR_TO_UTF8(*InstanceID), TCHAR_TO_UTF8(*MiddlewareType));
 
 	if (bIsMessageHandlerInitialized)
 	{
