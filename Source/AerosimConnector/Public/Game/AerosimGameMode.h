@@ -46,6 +46,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCesiumTileManager* GetCesiumTileManager() { return CesiumTileManager; }
+
+	void HandleStopCommand();
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;

@@ -123,6 +123,22 @@ void AAerosimGameMode::Tick(float DeltaSeconds)
 	CommandConsumer->ProcessCommandsFromQueue(DeltaSeconds);
 }
 
+void AAerosimGameMode::HandleStopCommand()
+{
+	UE_LOG(LogAerosimConnector, Warning, TEXT("[AerosimConnector] Received orchestrator stop command. Reloading level..."));
+
+	// End message handler immediately to stop receiving new messages
+	end_message_handler();
+	bIsMessageHandlerInitialized = false;
+
+	// Reload the current level - triggers EndPlay (cleanup) then BeginPlay (reinitialize)
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		UGameplayStatics::OpenLevel(World, FName(*World->GetName()));
+	}
+}
+
 void AAerosimGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
@@ -132,5 +148,9 @@ void AAerosimGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 		CesiumTileManager->EndPlay();
 	}
 
-	end_message_handler();
+	if (bIsMessageHandlerInitialized)
+	{
+		end_message_handler();
+		bIsMessageHandlerInitialized = false;
+	}
 }
