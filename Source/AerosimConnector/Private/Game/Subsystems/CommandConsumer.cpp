@@ -517,6 +517,18 @@ void UCommandConsumer::ProcessCommandsFromQueue(float DeltaSeconds)
 		FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer);
 		// UE_LOG(LogAerosimConnector, Log, TEXT("Parsed JSON: %s"), *JsonString);
 
+		// Check if this is a stop command from the orchestrator
+		FString CommandStr;
+		if (JsonObject->TryGetStringField(TEXT("command"), CommandStr) && CommandStr == TEXT("stop"))
+		{
+			std::free(Message);
+			if (GameMode)
+			{
+				GameMode->HandleStopCommand();
+			}
+			return;
+		}
+
 		const TArray<TSharedPtr<FJsonValue>>* CommandVec;
 		if (JsonObject->TryGetArrayField(TEXT("commands"), CommandVec))
 		{
