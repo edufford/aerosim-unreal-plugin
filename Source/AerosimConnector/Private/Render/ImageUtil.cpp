@@ -241,7 +241,11 @@ namespace ImageUtil
 		Self.Size = Texture->GetSizeXY();
 		Self.Format = Texture->GetFormat();
 		auto ResolveRect = FResolveRect();
+		// Transition texture to CopySrc layout before readback (fixes Vulkan layout mismatch on first frame)
+		CmdList.Transition(FRHITransitionInfo(Texture, ERHIAccess::SRVMask, ERHIAccess::CopySrc));
 		Self.Readback->EnqueueCopy(CmdList, Texture, ResolveRect);
+		// Transition back to shader-readable state for subsequent renders
+		CmdList.Transition(FRHITransitionInfo(Texture, ERHIAccess::CopySrc, ERHIAccess::SRVMask));
 
 		auto Query = RenderQueryPool->AllocateQuery();
 		CmdList.EndRenderQuery(Query.GetQuery());
