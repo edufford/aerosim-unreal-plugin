@@ -60,7 +60,7 @@ void ACameraSensor::GetCurrentFrame()
 	// 3. Split the image in chunks
 	ImageUtil::ReadSensorDataAsyncRaw(this, [this](const void* Mapping, FIntPoint Size) -> bool {
 		TRACE_CPUPROFILER_EVENT_SCOPE(ACameraSensor::RetrieveDataAndPublish);
-		publish_image_to_topic("aerosim.renderer.responses", Size.X, Size.Y, 1, Mapping, Size.X * Size.Y * 4);
+		publish_image_to_topic("aerosim.renderer.responses", Size.X, Size.Y, 3, Mapping, Size.X * Size.Y * 4); // 3 = BGRA8 matching PF_B8G8R8A8
 		return true;
 	});
 }
