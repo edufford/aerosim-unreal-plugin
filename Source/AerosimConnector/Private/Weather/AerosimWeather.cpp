@@ -20,10 +20,10 @@ FLinearColor JsonToColor(TSharedPtr<FJsonObject> JsonColor)
 		return FLinearColor::White; // Default color if invalid
 
 	FLinearColor Color;
-	Color.R = JsonColor->GetNumberField("R");
-	Color.G = JsonColor->GetNumberField("G");
-	Color.B = JsonColor->GetNumberField("B");
-	Color.A = JsonColor->GetNumberField("A");
+	Color.R = JsonColor->GetNumberField(TEXT("R"));
+	Color.G = JsonColor->GetNumberField(TEXT("G"));
+	Color.B = JsonColor->GetNumberField(TEXT("B"));
+	Color.A = JsonColor->GetNumberField(TEXT("A"));
 	return Color;
 }
 
@@ -177,61 +177,61 @@ void AAerosimWeather::ApplyLoadedWeatherPreset(const FString& JsonString)
 	if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
 	{
 		// Load and apply settings
-		ExponentialHeightFogComponent->FogDensity = JsonObject->GetNumberField("FogDensity");
-		ExponentialHeightFogComponent->SetFogHeightFalloff(JsonObject->GetNumberField("FogHeightFalloff"));
-		ExponentialHeightFogComponent->SecondFogData.FogDensity = JsonObject->GetNumberField("SecondFogDensity");
-		ExponentialHeightFogComponent->SecondFogData.FogHeightFalloff = JsonObject->GetNumberField("SecondFogHeightFalloff");
-		ExponentialHeightFogComponent->SecondFogData.FogHeightOffset = JsonObject->GetNumberField("SecondFogHeightOffset");
-		ExponentialHeightFogComponent->FogMaxOpacity = JsonObject->GetNumberField("FogMaxOpacity");
-		ExponentialHeightFogComponent->StartDistance = JsonObject->GetNumberField("StartDistance");
-		ExponentialHeightFogComponent->FogCutoffDistance = JsonObject->GetNumberField("FogCutoffDistance");
+		ExponentialHeightFogComponent->FogDensity = JsonObject->GetNumberField(TEXT("FogDensity"));
+		ExponentialHeightFogComponent->SetFogHeightFalloff(JsonObject->GetNumberField(TEXT("FogHeightFalloff")));
+		ExponentialHeightFogComponent->SecondFogData.FogDensity = JsonObject->GetNumberField(TEXT("SecondFogDensity"));
+		ExponentialHeightFogComponent->SecondFogData.FogHeightFalloff = JsonObject->GetNumberField(TEXT("SecondFogHeightFalloff"));
+		ExponentialHeightFogComponent->SecondFogData.FogHeightOffset = JsonObject->GetNumberField(TEXT("SecondFogHeightOffset"));
+		ExponentialHeightFogComponent->FogMaxOpacity = JsonObject->GetNumberField(TEXT("FogMaxOpacity"));
+		ExponentialHeightFogComponent->StartDistance = JsonObject->GetNumberField(TEXT("StartDistance"));
+		ExponentialHeightFogComponent->FogCutoffDistance = JsonObject->GetNumberField(TEXT("FogCutoffDistance"));
 
-		ExponentialHeightFogComponent->DirectionalInscatteringExponent = JsonObject->GetNumberField("DirectionalInScatteringExponent");
-		ExponentialHeightFogComponent->DirectionalInscatteringStartDistance = JsonObject->GetNumberField("DirectionalInScatteringStartDistance");
-		ExponentialHeightFogComponent->DirectionalInscatteringLuminance = JsonToColor(JsonObject->GetObjectField("DirectionalInScatteringColor"));
+		ExponentialHeightFogComponent->DirectionalInscatteringExponent = JsonObject->GetNumberField(TEXT("DirectionalInScatteringExponent"));
+		ExponentialHeightFogComponent->DirectionalInscatteringStartDistance = JsonObject->GetNumberField(TEXT("DirectionalInScatteringStartDistance"));
+		ExponentialHeightFogComponent->DirectionalInscatteringLuminance = JsonToColor(JsonObject->GetObjectField(TEXT("DirectionalInScatteringColor")));
 
-		ExponentialHeightFogComponent->bEnableVolumetricFog = JsonObject->GetBoolField("bVolumetricFog");
-		ExponentialHeightFogComponent->VolumetricFogScatteringDistribution = JsonObject->GetNumberField("VolumetricFogScatteringDistribution");
-		ExponentialHeightFogComponent->VolumetricFogAlbedo = JsonToColor(JsonObject->GetObjectField("VolumetricFogAlbedo")).ToFColor(false);
-		ExponentialHeightFogComponent->VolumetricFogEmissive = JsonToColor(JsonObject->GetObjectField("VolumetricFogEmissive"));
-		ExponentialHeightFogComponent->VolumetricFogExtinctionScale = JsonObject->GetNumberField("VolumetricFogExtinctionScale");
-		ExponentialHeightFogComponent->VolumetricFogDistance = JsonObject->GetNumberField("VolumetricFogViewDistance");
-		ExponentialHeightFogComponent->VolumetricFogNearFadeInDistance = JsonObject->GetNumberField("VolumetricFogNearInDistance");
-		ExponentialHeightFogComponent->VolumetricFogStaticLightingScatteringIntensity = JsonObject->GetNumberField("VolumetricFogStaticLightingScatteringIntensity");
+		ExponentialHeightFogComponent->bEnableVolumetricFog = JsonObject->GetBoolField(TEXT("bVolumetricFog"));
+		ExponentialHeightFogComponent->VolumetricFogScatteringDistribution = JsonObject->GetNumberField(TEXT("VolumetricFogScatteringDistribution"));
+		ExponentialHeightFogComponent->VolumetricFogAlbedo = JsonToColor(JsonObject->GetObjectField(TEXT("VolumetricFogAlbedo"))).ToFColor(false);
+		ExponentialHeightFogComponent->VolumetricFogEmissive = JsonToColor(JsonObject->GetObjectField(TEXT("VolumetricFogEmissive")));
+		ExponentialHeightFogComponent->VolumetricFogExtinctionScale = JsonObject->GetNumberField(TEXT("VolumetricFogExtinctionScale"));
+		ExponentialHeightFogComponent->VolumetricFogDistance = JsonObject->GetNumberField(TEXT("VolumetricFogViewDistance"));
+		ExponentialHeightFogComponent->VolumetricFogNearFadeInDistance = JsonObject->GetNumberField(TEXT("VolumetricFogNearInDistance"));
+		ExponentialHeightFogComponent->VolumetricFogStaticLightingScatteringIntensity = JsonObject->GetNumberField(TEXT("VolumetricFogStaticLightingScatteringIntensity"));
 
-		VolumetricCloudComponent->LayerBottomAltitude = JsonObject->GetNumberField("LayerBottomAltitude");
-		VolumetricCloudComponent->LayerHeight = JsonObject->GetNumberField("LayerHeight");
-		VolumetricCloudComponent->TracingStartMaxDistance = JsonObject->GetNumberField("TracingStartMaxDistance");
-		VolumetricCloudComponent->TracingMaxDistance = JsonObject->GetNumberField("TracingMaxDistance");
+		VolumetricCloudComponent->LayerBottomAltitude = JsonObject->GetNumberField(TEXT("LayerBottomAltitude"));
+		VolumetricCloudComponent->LayerHeight = JsonObject->GetNumberField(TEXT("LayerHeight"));
+		VolumetricCloudComponent->TracingStartMaxDistance = JsonObject->GetNumberField(TEXT("TracingStartMaxDistance"));
+		VolumetricCloudComponent->TracingMaxDistance = JsonObject->GetNumberField(TEXT("TracingMaxDistance"));
 
-		FString MaterialPath = JsonObject->GetStringField("CloudMaterial");
+		FString MaterialPath = JsonObject->GetStringField(TEXT("CloudMaterial"));
 		if (MaterialPath == "None")
 		{
 			VolumetricCloudComponent->SetMaterial(nullptr);
 		}
 		else
 		{
-			VolumetricCloudComponent->SetMaterial(Cast<UMaterialInterface>(StaticLoadObject(UMaterialInterface::StaticClass(), nullptr, *JsonObject->GetStringField("CloudMaterial"))));
+			VolumetricCloudComponent->SetMaterial(Cast<UMaterialInterface>(StaticLoadObject(UMaterialInterface::StaticClass(), nullptr, *JsonObject->GetStringField(TEXT("CloudMaterial")))));
 		}
-		VolumetricCloudComponent->bUsePerSampleAtmosphericLightTransmittance = JsonObject->GetBoolField("UsePerSampleAtmosphericLightTransmitannce");
-		VolumetricCloudComponent->SkyLightCloudBottomOcclusion = JsonObject->GetNumberField("SkyLightCloudBottomOcclusion");
-		VolumetricCloudComponent->ViewSampleCountScale = JsonObject->GetNumberField("ViewSampleCountScale");
-		VolumetricCloudComponent->ReflectionViewSampleCountScaleValue = JsonObject->GetNumberField("ReflectionViewSampleCountScaleValue");
-		VolumetricCloudComponent->ShadowViewSampleCountScale = JsonObject->GetNumberField("ShadowViewSampleCountScale");
-		VolumetricCloudComponent->ShadowReflectionViewSampleCountScaleValue = JsonObject->GetNumberField("ShadowReflectionViewSampleCountScaleValue");
-		VolumetricCloudComponent->ShadowTracingDistance = JsonObject->GetNumberField("ShadowTracingDistance");
-		VolumetricCloudComponent->StopTracingTransmittanceThreshold = JsonObject->GetNumberField("StopTracingTransmittanceThreshold");
+		VolumetricCloudComponent->bUsePerSampleAtmosphericLightTransmittance = JsonObject->GetBoolField(TEXT("UsePerSampleAtmosphericLightTransmitannce"));
+		VolumetricCloudComponent->SkyLightCloudBottomOcclusion = JsonObject->GetNumberField(TEXT("SkyLightCloudBottomOcclusion"));
+		VolumetricCloudComponent->ViewSampleCountScale = JsonObject->GetNumberField(TEXT("ViewSampleCountScale"));
+		VolumetricCloudComponent->ReflectionViewSampleCountScaleValue = JsonObject->GetNumberField(TEXT("ReflectionViewSampleCountScaleValue"));
+		VolumetricCloudComponent->ShadowViewSampleCountScale = JsonObject->GetNumberField(TEXT("ShadowViewSampleCountScale"));
+		VolumetricCloudComponent->ShadowReflectionViewSampleCountScaleValue = JsonObject->GetNumberField(TEXT("ShadowReflectionViewSampleCountScaleValue"));
+		VolumetricCloudComponent->ShadowTracingDistance = JsonObject->GetNumberField(TEXT("ShadowTracingDistance"));
+		VolumetricCloudComponent->StopTracingTransmittanceThreshold = JsonObject->GetNumberField(TEXT("StopTracingTransmittanceThreshold"));
 
-		SkyAtmosphereComponent->RayleighScatteringScale = JsonObject->GetNumberField("RayleighScatteringScale");
-		SkyAtmosphereComponent->RayleighExponentialDistribution = JsonObject->GetNumberField("RayleighExponentialDistribution");
-		SkyAtmosphereComponent->RayleighScattering = JsonToColor(JsonObject->GetObjectField("RayleighScattering"));
+		SkyAtmosphereComponent->RayleighScatteringScale = JsonObject->GetNumberField(TEXT("RayleighScatteringScale"));
+		SkyAtmosphereComponent->RayleighExponentialDistribution = JsonObject->GetNumberField(TEXT("RayleighExponentialDistribution"));
+		SkyAtmosphereComponent->RayleighScattering = JsonToColor(JsonObject->GetObjectField(TEXT("RayleighScattering")));
 
-		SkyAtmosphereComponent->MieScatteringScale = JsonObject->GetNumberField("MieScatteringScale");
-		SkyAtmosphereComponent->MieScattering = JsonToColor(JsonObject->GetObjectField("MieScattering"));
-		SkyAtmosphereComponent->MieAbsorptionScale = JsonObject->GetNumberField("MieAbsorptionScale");
-		SkyAtmosphereComponent->MieAbsorption = JsonToColor(JsonObject->GetObjectField("MieAbsorption"));
-		SkyAtmosphereComponent->MieAnisotropy = JsonObject->GetNumberField("MieAnisotropy");
-		SkyAtmosphereComponent->MieExponentialDistribution = JsonObject->GetNumberField("MieExponentialDistribution");
+		SkyAtmosphereComponent->MieScatteringScale = JsonObject->GetNumberField(TEXT("MieScatteringScale"));
+		SkyAtmosphereComponent->MieScattering = JsonToColor(JsonObject->GetObjectField(TEXT("MieScattering")));
+		SkyAtmosphereComponent->MieAbsorptionScale = JsonObject->GetNumberField(TEXT("MieAbsorptionScale"));
+		SkyAtmosphereComponent->MieAbsorption = JsonToColor(JsonObject->GetObjectField(TEXT("MieAbsorption")));
+		SkyAtmosphereComponent->MieAnisotropy = JsonObject->GetNumberField(TEXT("MieAnisotropy"));
+		SkyAtmosphereComponent->MieExponentialDistribution = JsonObject->GetNumberField(TEXT("MieExponentialDistribution"));
 	}
 }
 
