@@ -29,6 +29,8 @@ class AEROSIMCONNECTOR_API AAerosimGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	AAerosimGameMode();
+
 	inline APawn* GetSpectatorPawn() { return SpectatorPawn; };
 	inline const APawn* GetSpectatorPawn() const { return SpectatorPawn; };
 

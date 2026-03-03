@@ -1071,7 +1071,7 @@ void UCommandConsumer::AttachActorToActorWithSocketCommand(TSharedPtr<FJsonObjec
 	else
 	{
 		bool Result = ChildActor->AttachToActor(ParentActor, FAttachmentTransformRules::SnapToTargetNotIncludingScale, *SocketName);
-		UE_LOG(LogAerosimConnector, Log, TEXT("Attach actor to actor with socket command processed %s: ParentActorID: %d, ChildActorID: %d, SocketName: %s"), Result ? "Successful" : "Failed", ParentActorId, ChildActorId, *SocketName);
+		UE_LOG(LogAerosimConnector, Log, TEXT("Attach actor to actor with socket command processed %s: ParentActorID: %d, ChildActorID: %d, SocketName: %s"), Result ? TEXT("Successful") : TEXT("Failed"), ParentActorId, ChildActorId, *SocketName);
 	}
 }
 

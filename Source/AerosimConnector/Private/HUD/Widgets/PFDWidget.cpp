@@ -12,7 +12,7 @@ void UPFDWidget::GetData(float& Airspeed, float& TrueAirspeed, float& Altitude, 
 	AAerosimGameMode* GameMode = Cast<AAerosimGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	if (!IsValid(GameMode))
 	{
-		UE_LOG(LogAerosimConnector, Error, TEXT("GameMode Not Found: %s"));
+		UE_LOG(LogAerosimConnector, Error, TEXT("GameMode Not Found"));
 		return;
 	}
 

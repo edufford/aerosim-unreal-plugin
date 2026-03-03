@@ -15,6 +15,11 @@
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/PlayerState.h"
 
+AAerosimGameMode::AAerosimGameMode()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
 void AAerosimGameMode::BeginPlay()
 {
 	Super::BeginPlay();
