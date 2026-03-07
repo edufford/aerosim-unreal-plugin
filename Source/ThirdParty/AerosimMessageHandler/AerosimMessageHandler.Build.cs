@@ -37,23 +37,5 @@ public class AerosimMessageHandler : ModuleRules
         string AerosimWorldLinkDynLibPath = Path.Combine(AerosimWorldLinkLibPath, AerosimWorldLinkDynLibFilename);
         RuntimeDependencies.Add(Path.Combine("$(BinaryOutputDir)", AerosimWorldLinkDynLibFilename), AerosimWorldLinkDynLibPath);
         PublicDelayLoadDLLs.Add(AerosimWorldLinkDynLibPath);
-
-        if (IsWindows)
-        {
-            // Manually add Unreal's Python DLLs to packaged binaries for Windows.
-            // The versioned DLL name varies by UE version (e.g. python39.dll in UE 5.3, python311.dll in UE 5.7).
-            string UnrealEnginePath = Environment.GetEnvironmentVariable("AEROSIM_UNREAL_ENGINE_ROOT");
-            string Python3LibPath = Path.Combine(UnrealEnginePath, "Engine/Binaries/ThirdParty/Python3/Win64");
-            RuntimeDependencies.Add(Path.Combine("$(BinaryOutputDir)", "python3.dll"), Python3LibPath + "/python3.dll");
-            string[] VersionedPythonDlls = Directory.GetFiles(Python3LibPath, "python3*.dll");
-            foreach (string VersionedDll in VersionedPythonDlls)
-            {
-                string DllFilename = Path.GetFileName(VersionedDll);
-                if (DllFilename != "python3.dll")
-                {
-                    RuntimeDependencies.Add(Path.Combine("$(BinaryOutputDir)", DllFilename), VersionedDll);
-                }
-            }
-        }
     }
 }
