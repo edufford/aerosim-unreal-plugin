@@ -31,7 +31,6 @@ public class AerosimConnector : ModuleRules
 				"UMG",
 				"RHI",
 				"AerosimMessageHandler",
-				"Python3",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
